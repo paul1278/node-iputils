@@ -1,0 +1,13 @@
+*npm-debug.log
+*.log
+node_modules
+docs
+/config/main.user.json
+content/pics/*
+!/content/pics/*_default.png
+public/icons/*
+!public/icons/icon-*
+!/**/.gitkeep
+config/accesstokens
+strategies/**/override.js
+dist

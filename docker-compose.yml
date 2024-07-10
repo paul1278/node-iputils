@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  main:
+    image: node:20
+    #command: node ./index.js
+    #command: bash 
+    environment:
+      - TZ="Europe/Berlin"
+    stdin_open: true
+    tty: true
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app

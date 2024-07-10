@@ -1,0 +1,9 @@
+{
+    "plugins": [],
+    "source": {
+        "excludePattern": "node_modules"
+    },
+    "opts" : {
+        "destination": "./docs"
+    }
+}

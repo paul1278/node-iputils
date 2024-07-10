@@ -1,0 +1,47 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2020": true,
+        "node": true
+    },
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+        "requireConfigFile": false
+    },
+    "root": true,
+    "extends": [
+        "prettier", "eslint:recommended"
+    ],
+    "plugins": [
+      "prettier",
+      "jsdoc"
+    ],
+    "rules": {
+        "prettier/prettier": "error",
+        "no-useless-escape": "off",
+        "jsdoc/check-alignment": 1,
+        "jsdoc/check-indentation": 1,
+        "jsdoc/check-param-names": 1,
+        "jsdoc/check-tag-names": 1,
+        "jsdoc/check-types": 1,
+        "jsdoc/implements-on-classes": 1,
+        "jsdoc/require-description": 1,
+        "jsdoc/require-jsdoc": [1, {
+            "require": {
+                "FunctionDeclaration": true,
+                "MethodDefinition": true,
+                "ClassDeclaration": true
+            }
+        }],
+        "jsdoc/require-param": 1,
+        "jsdoc/require-param-description": 1,
+        "jsdoc/require-param-name": 1,
+        "jsdoc/require-param-type": 1,
+        "jsdoc/require-returns": 1,
+        "jsdoc/require-returns-check": 1,
+        "jsdoc/require-returns-description": 1,
+        "jsdoc/require-returns-type": 1,
+        "jsdoc/valid-types": 1
+    }
+}
