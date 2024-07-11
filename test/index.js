@@ -8,12 +8,17 @@ const IPV4_ADDRESS = "1.2.3.4";
 const IPV4_ADDRESS_MASK = 24;
 const IPV4_ADDRESS_MASK_NUMBER = 4294967040n;
 const IPV4_ADDRESS_NUMBER = 16909060n;
+const IPV4_ADDRESS_INCR = "1.2.4.2";
+const IPV4_INCR = 254;
 const IPV4_ADDRESS_MASKED = "1.2.3.0";
+const IPV4_ADDRESS_NOT_IN_SUBNET = "1.5.2.0";
 
 const IPV6_ADDRESS_MAX = "fde8:894a:040c:ee20:0000:0000:0000:0001";
 const IPV6_ADDRESS_MAX_MASKED = "fde8:894a:040c:ee20:0000:0000:0000:0000";
 const IPV6_ADDRESS_MED = "fde8:894a:40c:ee20:0000::01";
 const IPV6_ADDRESS_MIN = "fde8:894a:40c:ee20::1";
+const IPV6_ADDRESS_MAX_INCR = "fde8:894a:040c:ee20:0000:0000:0001:0002";
+const IPV6_INCR = 65537;
 const IPV6_ADDRESS_MASK = 64;
 const IPV6_ADDRESS_MASK_NUMBER = 340282366920938463444927863358058659840n;
 const IPV6_ADDRESS_NUMBER = 337502080359017093851530813254246858753n;
@@ -109,6 +114,20 @@ describe("Conversion", () => {
   });
 });
 
+describe("In/De-crementing", () => {
+  it("should correctly in/de-crement IP addresses", () => {
+    let ip = new IPAddress(IPV4_ADDRESS, IPV4_ADDRESS_MASK);
+    let ipIncrement = ip.increment(IPV4_INCR);
+    assert.strictEqual(ipIncrement.ip, IPV4_ADDRESS_INCR);
+    assert.strictEqual(ipIncrement.decrement(IPV4_INCR).ip, IPV4_ADDRESS);
+
+    ip = new IPAddress(IPV6_ADDRESS_MAX, IPV6_ADDRESS_MASK);
+    ipIncrement = ip.increment(IPV6_INCR);
+    assert.strictEqual(ipIncrement.ip, IPV6_ADDRESS_MAX_INCR);
+    assert.strictEqual(ipIncrement.decrement(IPV6_INCR).ip, IPV6_ADDRESS_MAX);
+  });
+});
+
 describe("Masking", () => {
   it("should correctly mask an IPv4 address", () => {
     const ip = new IPAddress(IPV4_ADDRESS, IPV4_ADDRESS_MASK);
@@ -131,5 +150,53 @@ describe("Subnetting", () => {
     let ip = new IPAddress(IPV4_ADDRESS, IPV4_ADDRESS_MASK);
     let subnet = ip.getSubnet();
     assert.strictEqual(subnet instanceof IPSubnet, true);
+  });
+  it("should be able to match addresses in a subnet", () => {
+    let ip = new IPAddress(IPV4_ADDRESS, IPV4_ADDRESS_MASK);
+    let subnet = ip.getSubnet();
+    assert.strictEqual(
+      subnet.isInSubnet(new IPAddress(IPV4_ADDRESS, IPV4_ADDRESS_MASK)),
+      true,
+    );
+    assert.strictEqual(
+      subnet.isInSubnet(
+        new IPAddress(IPV4_ADDRESS_NOT_IN_SUBNET, IPV4_ADDRESS_MASK),
+      ),
+      false,
+    );
+
+    ip = new IPAddress(IPV6_ADDRESS_MIN, IPV6_ADDRESS_MASK);
+    subnet = ip.getSubnet();
+    assert.strictEqual(
+      subnet.isInSubnet(new IPAddress(IPV6_ADDRESS_MIN, IPV6_ADDRESS_MASK)),
+      true,
+    );
+    assert.strictEqual(
+      subnet.isInSubnet(new IPAddress(IPV6_ADDRESS_2_MAX, IPV6_ADDRESS_MASK)),
+      false,
+    );
+  });
+  it("should throw when checking different types", () => {
+    let ip = new IPAddress(IPV4_ADDRESS, IPV4_ADDRESS_MASK);
+    let subnet = ip.getSubnet();
+    assert.throws(
+      () =>
+        subnet.isInSubnet(new IPAddress(IPV6_ADDRESS_MAX, IPV6_ADDRESS_MASK)),
+      InvalidIPError,
+    );
+  });
+  it("should return the same IP when getting the smallest", () => {
+    let ip = new IPAddress(IPV4_ADDRESS, IPV4_ADDRESS_MASK);
+    let subnet = ip.getSubnet();
+    assert.strictEqual(
+      IPAddress.fromNumber(subnet.getSmallestIPAsNumber(), 4).ip,
+      IPV4_ADDRESS_MASKED,
+    );
+    ip = new IPAddress(IPV6_ADDRESS_MAX, IPV6_ADDRESS_MASK);
+    subnet = ip.getSubnet();
+    assert.strictEqual(
+      IPAddress.fromNumber(subnet.getSmallestIPAsNumber(), 6).ip,
+      IPV6_ADDRESS_MAX_MASKED,
+    );
   });
 });
