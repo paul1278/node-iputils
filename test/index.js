@@ -199,4 +199,12 @@ describe("Subnetting", () => {
       IPV6_ADDRESS_MAX_MASKED,
     );
   });
+  it("should say same subnet for same address on /32 and /128", () => {
+    let ip = new IPAddress(IPV4_ADDRESS, 32);
+    let subnet = ip.getSubnet();
+    assert.strictEqual(
+      subnet.isInSubnet(new IPAddress(IPV4_ADDRESS, 32)),
+      true,
+    );
+  });
 });
