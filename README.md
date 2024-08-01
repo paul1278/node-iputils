@@ -1,4 +1,4 @@
-# node-iplib
+# node-iputils
 A quite small and simple IP-library with only a few classes. Tested & linted.
 
 **Features:**
@@ -13,12 +13,12 @@ A quite small and simple IP-library with only a few classes. Tested & linted.
 ## Usage
 Install using `npm`:
 ```bash
-npm install node-iplib
+npm install node-iputils
 ```
 
 Now use it in your code:
 ```js
-const { IPAddress } = require("node-iplib");
+const { IPAddress } = require("node-iputils");
 
 const ipSubnet = new IPAddress("192.168.0.0", 24);
 const ipv4 = new IPAddress("192.168.0.5", 32);

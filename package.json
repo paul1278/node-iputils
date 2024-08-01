@@ -1,5 +1,5 @@
 {
-  "name": "node-iplib",
+  "name": "node-iputils",
   "version": "0.1.0",
   "main": "index.js",
   "directories": {
@@ -12,14 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/paul1278/node-iplib.git"
+    "url": "git+https://github.com/paul1278/node-iputils.git"
   },
   "author": "/dev/paul",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/paul1278/node-iplib/issues"
+    "url": "https://github.com/paul1278/node-iputils/issues"
   },
   "keywords": ["ip", "address", "subnet", "range"],
+  "homepage": "https://github.com/paul1278/node-iputils#readme",
   "description": "A very small and simple library to handle IPv4- & IPv6-addresses.",
   "devDependencies": {
     "@babel/eslint-parser": "^7.24.7",
