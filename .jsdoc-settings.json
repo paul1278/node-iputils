@@ -1,6 +1,7 @@
 {
     "plugins": [],
     "source": {
+        "include": ["lib"],
         "excludePattern": "node_modules"
     },
     "opts" : {
