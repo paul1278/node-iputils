@@ -6,7 +6,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "node --experimental-test-coverage --test "
+    "test": "node --experimental-test-coverage --test ",
+		"lint": "eslint . --fix",
+		"ci-lint": "eslint . --max-warnings=0"
   },
   "repository": {
     "type": "git",
